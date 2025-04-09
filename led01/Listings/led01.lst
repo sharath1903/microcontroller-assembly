@@ -1,0 +1,47 @@
+A51 MACRO ASSEMBLER  LED01                                                                04/09/2025 20:16:37 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\led01.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE led01.a51 SET(SMALL) DEBUG PRINT(.\Listings\led01.lst) OBJECT(.\Objects
+                      \led01.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 0x00 
+                       2             
+0000                   3     START:
+0000 D290              4             SETB P1.0
+0002 110A              5             ACALL DELAY
+0004 C290              6             CLR P1.0
+0006 110A              7             ACALL DELAY
+0008 80F6              8             SJMP START
+                       9             
+000A                  10     DELAY:
+000A 7AFA             11             MOV R2, #250
+000C 79FA             12     D1: MOV R1, #250
+000E D9FE             13     D2: DJNZ R1, D2
+0010 DAFA             14         DJNZ R2, D1
+0012 22               15             RET
+                      16             
+                      17     END
+                                     
+A51 MACRO ASSEMBLER  LED01                                                                04/09/2025 20:16:37 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+D1 . . . . . . . .  C ADDR   000CH   A   
+D2 . . . . . . . .  C ADDR   000EH   A   
+DELAY. . . . . . .  C ADDR   000AH   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+START. . . . . . .  C ADDR   0000H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
