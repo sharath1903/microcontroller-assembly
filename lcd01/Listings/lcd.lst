@@ -1,0 +1,112 @@
+A51 MACRO ASSEMBLER  LCD                                                                  04/09/2025 20:18:33 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\lcd.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE lcd.a51 SET(SMALL) DEBUG PRINT(.\Listings\lcd.lst) OBJECT(.\Objects\lcd
+                      .obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 0000H
+                       2     
+0000 75A000            3     MOV P2, #00H    ; Configure P2 as output (LCD data)
+0003 75B000            4     MOV P3, #00H    ; Configure P3 as output (Control pins)
+                       5     
+0006 110F              6     CALL INIT_LCD   ; Initialize LCD
+                       7     
+                       8     ; Display "Hi! Welcome"
+0008 900051            9     MOV DPTR, #MSG  ; Load message address
+000B 113E             10     CALL DISPLAY_STR
+                      11     
+000D 80FE             12     HERE: SJMP HERE ; Infinite loop
+                      13     
+                      14     ; ---------- LCD Initialization -------------
+000F                  15     INIT_LCD:
+000F 7438             16         MOV A, #38H  ; Function Set: 8-bit mode, 2 lines, 5x8 font
+0011 1120             17         CALL CMD_WR
+0013 740C             18         MOV A, #0CH  ; Display ON, Cursor OFF
+0015 1120             19         CALL CMD_WR
+0017 7401             20         MOV A, #01H  ; Clear Display
+0019 1120             21         CALL CMD_WR
+001B 7406             22         MOV A, #06H  ; Entry Mode: Auto Increment
+001D 1120             23         CALL CMD_WR
+001F 22               24         RET
+                      25     
+                      26     ; ---------- Command Write Function -------------
+0020                  27     CMD_WR:
+0020 F5A0             28         MOV P2, A    ; Send command to LCD
+0022 C2B0             29         CLR P3.0     ; RS = 0 (Command mode)
+0024 C2B1             30         CLR P3.1     ; RW = 0 (Write)
+0026 D2B2             31         SETB P3.2    ; Enable high
+0028 1148             32         ACALL DELAY
+002A C2B2             33         CLR P3.2     ; Enable low
+002C 1148             34         ACALL DELAY
+002E 22               35         RET
+                      36     
+                      37     ; ---------- Data Write Function -------------
+002F                  38     DATA_WR:
+002F F5A0             39         MOV P2, A    ; Send data to LCD
+0031 D2B0             40         SETB P3.0    ; RS = 1 (Data mode)
+0033 C2B1             41         CLR P3.1     ; RW = 0 (Write)
+0035 D2B2             42         SETB P3.2    ; Enable high
+0037 1148             43         ACALL DELAY
+0039 C2B2             44         CLR P3.2     ; Enable low
+003B 1148             45         ACALL DELAY
+003D 22               46         RET
+                      47     
+                      48     ; ---------- Display String Function -------------
+003E                  49     DISPLAY_STR:
+003E E4               50         CLR A
+003F 93               51         MOVC A, @A+DPTR ; Load first character
+0040 6005             52         JZ EXIT_STR     ; If null terminator, exit
+0042 112F             53         CALL DATA_WR    ; Send character to LCD
+0044 A3               54         INC DPTR        ; Move to next character
+0045 80F7             55         SJMP DISPLAY_STR
+                      56     
+0047                  57     EXIT_STR:
+A51 MACRO ASSEMBLER  LCD                                                                  04/09/2025 20:18:33 PAGE     2
+
+0047 22               58         RET
+                      59     
+                      60     ; ---------- Delay Function -------------
+0048                  61     DELAY:
+0048 7FFF             62         MOV R7, #255
+004A                  63     DELAY_LOOP1:
+004A 7EFF             64         MOV R6, #255
+004C                  65     DELAY_LOOP2:
+004C DEFE             66         DJNZ R6, DELAY_LOOP2
+004E DFFA             67         DJNZ R7, DELAY_LOOP1
+0050 22               68         RET
+                      69     
+                      70     ; ---------- Message Data -------------
+0051 73686172         71     MSG: DB "sharath", 0  ; String with null terminator
+0055 61746800                
+                      72     
+                      73     END
+A51 MACRO ASSEMBLER  LCD                                                                  04/09/2025 20:18:33 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+CMD_WR . . . . . .  C ADDR   0020H   A   
+DATA_WR. . . . . .  C ADDR   002FH   A   
+DELAY. . . . . . .  C ADDR   0048H   A   
+DELAY_LOOP1. . . .  C ADDR   004AH   A   
+DELAY_LOOP2. . . .  C ADDR   004CH   A   
+DISPLAY_STR. . . .  C ADDR   003EH   A   
+EXIT_STR . . . . .  C ADDR   0047H   A   
+HERE . . . . . . .  C ADDR   000DH   A   
+INIT_LCD . . . . .  C ADDR   000FH   A   
+MSG. . . . . . . .  C ADDR   0051H   A   
+P2 . . . . . . . .  D ADDR   00A0H   A   
+P3 . . . . . . . .  D ADDR   00B0H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
