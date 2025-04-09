@@ -1,0 +1,16 @@
+ORG 0000H
+	LJMP MAIN
+	ORG 0013H
+		CPL P1.0
+		RETI
+		
+		ORG 0030H
+			MAIN:
+			SETB EA
+			SETB EX1
+			SETB IT1
+			SETB P1.0
+			
+			LOOP:
+			SJMP LOOP
+			END
