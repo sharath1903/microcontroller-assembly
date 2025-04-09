@@ -1,0 +1,4 @@
+".\Objects\STARTUP.obj",
+".\Objects\inter.obj" 
+TO ".\Objects\intr" 
+PRINT(".\Listings\intr.m51") RAMSIZE(256) 
