@@ -1,0 +1,118 @@
+A51 MACRO ASSEMBLER  LED_SCRL                                                             04/15/2025 08:47:23 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\led scrl.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE led scrl.a51 SET(SMALL) DEBUG PRINT(.\Listings\led scrl.lst) OBJECT(.\O
+                      bjects\led scrl.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 0000H
+                       2     
+0000 75A000            3     MOV P2, #00H
+0003 75B000            4     MOV P3, #00H
+                       5     
+0006                   6     MAIN:
+0006 110F              7         CALL INIT_LCD
+0008 90005C            8         MOV DPTR, #MSG
+000B 1142              9         CALL DISPLAY
+                      10     
+000D                  11     HERE:
+000D 80FE             12         SJMP HERE
+                      13     
+                      14     ;----------------------------------
+000F                  15     INIT_LCD:
+000F 7438             16         MOV A, #38H      ; Function set
+0011 1124             17         ACALL LCD_CMD
+0013 740E             18         MOV A, #0EH      ; Display ON, cursor ON
+0015 1124             19         ACALL LCD_CMD
+0017 7401             20         MOV A, #01H      ; Clear display
+0019 1124             21         ACALL LCD_CMD
+001B 7406             22         MOV A, #06H      ; Entry mode
+001D 1124             23         ACALL LCD_CMD
+001F 7480             24         MOV A, #80H      ; Set DDRAM address to 0x00 (start of first line)
+0021 1124             25         ACALL LCD_CMD
+0023 22               26         RET
+                      27     
+                      28     ;----------------------------------
+0024                  29     LCD_CMD:
+0024 F5A0             30         MOV P2, A
+0026 C2B0             31         CLR P3.0         ; RS = 0 for command
+0028 C2B1             32         CLR P3.1         ; RW = 0 for write
+002A D2B2             33         SETB P3.2        ; EN = 1
+002C 1153             34         ACALL DELAY
+002E C2B2             35         CLR P3.2         ; EN = 0
+0030 1153             36         ACALL DELAY
+0032 22               37         RET
+                      38     
+                      39     ;----------------------------------
+0033                  40     LCD_DATA:
+0033 F5A0             41         MOV P2, A
+0035 D2B0             42         SETB P3.0        ; RS = 1 for data
+0037 C2B1             43         CLR P3.1         ; RW = 0 for write
+0039 D2B2             44         SETB P3.2        ; EN = 1
+003B 1153             45         ACALL DELAY
+003D C2B2             46         CLR P3.2         ; EN = 0
+003F 1153             47         ACALL DELAY
+0041 22               48         RET
+                      49     
+                      50     ;----------------------------------
+0042                  51     DISPLAY:
+0042                  52     NEXT_CHAR:
+0042 E4               53         CLR A
+0043 93               54         MOVC A, @A+DPTR
+0044 6005             55         JZ SCROLL
+0046 1133             56         ACALL LCD_DATA
+0048 A3               57         INC DPTR
+A51 MACRO ASSEMBLER  LED_SCRL                                                             04/15/2025 08:47:23 PAGE     2
+
+0049 80F7             58         SJMP NEXT_CHAR
+                      59     
+004B                  60     SCROLL:
+004B 1153             61         ACALL DELAY
+004D 741C             62         MOV A, #1CH      ; Scroll display
+004F 1124             63         ACALL LCD_CMD
+0051 80F8             64         SJMP SCROLL
+                      65     
+                      66     ;----------------------------------
+0053                  67     DELAY:
+0053 7DFF             68         MOV R5, #255
+0055 7EFF             69     D1: MOV R6, #255
+0057 DEFE             70     D2: DJNZ R6, D2
+0059 DDFA             71         DJNZ R5, D1
+005B 22               72         RET
+                      73     
+                      74     ;----------------------------------
+005C 4D414E49         75     MSG: DB 'MANI', 0
+0060 00                      
+                      76     
+                      77     END
+A51 MACRO ASSEMBLER  LED_SCRL                                                             04/15/2025 08:47:23 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+D1 . . . . . . . .  C ADDR   0055H   A   
+D2 . . . . . . . .  C ADDR   0057H   A   
+DELAY. . . . . . .  C ADDR   0053H   A   
+DISPLAY. . . . . .  C ADDR   0042H   A   
+HERE . . . . . . .  C ADDR   000DH   A   
+INIT_LCD . . . . .  C ADDR   000FH   A   
+LCD_CMD. . . . . .  C ADDR   0024H   A   
+LCD_DATA . . . . .  C ADDR   0033H   A   
+MAIN . . . . . . .  C ADDR   0006H   A   
+MSG. . . . . . . .  C ADDR   005CH   A   
+NEXT_CHAR. . . . .  C ADDR   0042H   A   
+P2 . . . . . . . .  D ADDR   00A0H   A   
+P3 . . . . . . . .  D ADDR   00B0H   A   
+SCROLL . . . . . .  C ADDR   004BH   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

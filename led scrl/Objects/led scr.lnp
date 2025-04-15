@@ -1,0 +1,4 @@
+".\Objects\STARTUP.obj",
+".\Objects\led scrl.obj" 
+TO ".\Objects\led scr" 
+PRINT(".\Listings\led scr.m51") RAMSIZE(256) 
