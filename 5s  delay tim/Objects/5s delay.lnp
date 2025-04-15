@@ -1,0 +1,4 @@
+".\Objects\STARTUP.obj",
+".\Objects\5s d.obj" 
+TO ".\Objects\5s delay" 
+PRINT(".\Listings\5s delay.m51") RAMSIZE(256) 

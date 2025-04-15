@@ -1,0 +1,60 @@
+A51 MACRO ASSEMBLER  5S_D                                                                 04/15/2025 09:19:48 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\5s d.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE 5s d.a51 SET(SMALL) DEBUG PRINT(.\Listings\5s d.lst) OBJECT(.\Objects\5
+                      s d.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 00H
+                       2     
+0000                   3     MAIN:
+0000 758901            4         MOV TMOD, #01H     
+0003 7A4C              5         MOV R2, #76        
+                       6     
+0005                   7     AGAIN:
+0005 7590FF            8         MOV P1, #0FFH      
+0008 1111              9         ACALL DELAY        
+000A 759000           10         MOV P1, #00H       
+000D 1111             11         ACALL DELAY        
+000F 80F4             12         SJMP AGAIN         
+                      13     
+0011                  14     DELAY:
+0011 758C00           15         MOV TH0, #00H      
+0014 758A00           16         MOV TL0, #00H      
+0017 D28C             17         SETB TR0           
+                      18     
+0019                  19     WAIT_OVERFLOW:
+0019 308DFD           20         JNB TF0, WAIT_OVERFLOW 
+001C C28D             21         CLR TF0            
+001E C28C             22         CLR TR0            
+0020 DAEF             23         DJNZ R2, DELAY     
+0022 22               24         RET
+                      25     
+                      26     END
+A51 MACRO ASSEMBLER  5S_D                                                                 04/15/2025 09:19:48 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+AGAIN. . . . . . .  C ADDR   0005H   A   
+DELAY. . . . . . .  C ADDR   0011H   A   
+MAIN . . . . . . .  C ADDR   0000H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+TF0. . . . . . . .  B ADDR   0088H.5 A   
+TH0. . . . . . . .  D ADDR   008CH   A   
+TL0. . . . . . . .  D ADDR   008AH   A   
+TMOD . . . . . . .  D ADDR   0089H   A   
+TR0. . . . . . . .  B ADDR   0088H.4 A   
+WAIT_OVERFLOW. . .  C ADDR   0019H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
