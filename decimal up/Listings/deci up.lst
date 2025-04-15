@@ -1,0 +1,55 @@
+A51 MACRO ASSEMBLER  DECI_UP                                                              04/15/2025 09:10:53 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\deci up.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE deci up.a51 SET(SMALL) DEBUG PRINT(.\Listings\deci up.lst) OBJECT(.\Obj
+                      ects\deci up.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 0000H
+                       2     
+0000                   3     START:
+0000 7800              4         MOV R0, #00H
+                       5     
+0002                   6     MAIN:
+0002 E8                7         MOV A, R0
+0003 F5A0              8         MOV P2, A
+0005 110F              9         ACALL DELAY
+0007 08               10         INC R0
+0008 B86402           11         CJNE R0, #64H, NEXT
+000B 7800             12         MOV R0, #00H
+                      13     
+000D                  14     NEXT:
+000D 80F3             15         SJMP MAIN
+                      16     
+000F                  17     DELAY:
+000F 7AFF             18         MOV R2, #255
+0011 7BFF             19     D1: MOV R3, #255
+0013 DBFE             20     D2: DJNZ R3, D2
+0015 DAFA             21         DJNZ R2, D1
+0017 22               22         RET
+                      23     
+                      24     END
+A51 MACRO ASSEMBLER  DECI_UP                                                              04/15/2025 09:10:53 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+D1 . . . . . . . .  C ADDR   0011H   A   
+D2 . . . . . . . .  C ADDR   0013H   A   
+DELAY. . . . . . .  C ADDR   000FH   A   
+MAIN . . . . . . .  C ADDR   0002H   A   
+NEXT . . . . . . .  C ADDR   000DH   A   
+P2 . . . . . . . .  D ADDR   00A0H   A   
+START. . . . . . .  C ADDR   0000H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

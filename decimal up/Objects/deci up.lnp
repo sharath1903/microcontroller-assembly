@@ -1,0 +1,4 @@
+".\Objects\STARTUP.obj",
+".\Objects\deci up.obj" 
+TO ".\Objects\deci up" 
+PRINT(".\Listings\deci up.m51") RAMSIZE(256) 
