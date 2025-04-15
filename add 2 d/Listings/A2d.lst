@@ -1,0 +1,43 @@
+A51 MACRO ASSEMBLER  A2D                                                                  04/15/2025 09:02:45 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\A2d.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE A2d.a51 SET(SMALL) DEBUG PRINT(.\Listings\A2d.lst) OBJECT(.\Objects\A2d
+                      .obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 0000H        ; Starting address
+                       2     
+0000                   3     LOW_BYTE:
+0000 745F              4         MOV A, #5FH      ; Load lower byte into accumulator
+0002 24B4              5         ADD A, #0B4H     ; Add immediate value
+0004 FF                6         MOV R7, A        ; Store result in R7
+                       7     
+0005                   8     HIGH_BYTE:
+0005 742E              9         MOV A, #2EH      ; Load upper byte into accumulator
+0007 34A3             10         ADDC A, #0A3H    ; Add immediate value with carry
+0009 FE               11         MOV R6, A        ; Store result in R6
+                      12     
+000A                  13     LOOP:
+000A 80FE             14         SJMP LOOP        ; Infinite loop to end program
+                      15     
+                      16     END                 ; End of program
+A51 MACRO ASSEMBLER  A2D                                                                  04/15/2025 09:02:45 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+HIGH_BYTE. . . . .  C ADDR   0005H   A   
+LOOP . . . . . . .  C ADDR   000AH   A   
+LOW_BYTE . . . . .  C ADDR   0000H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
