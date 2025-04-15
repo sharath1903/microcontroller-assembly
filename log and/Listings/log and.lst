@@ -1,0 +1,39 @@
+A51 MACRO ASSEMBLER  LOG_AND                                                              04/15/2025 09:34:42 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\log and.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE log and.a51 SET(SMALL) DEBUG PRINT(.\Listings\log and.lst) OBJECT(.\Obj
+                      ects\log and.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 0000H
+                       2             
+0000                   3             MAIN:
+0000 78AE              4             MOV R0,#0AEH
+0002 79D0              5             MOV R1,#0D0H
+0004 E8                6             MOV A,R0
+0005 59                7             ANL A,R1
+0006 F5A0              8             MOV P2, A
+                       9             
+0008                  10             LOOP:
+0008 80FE             11             SJMP LOOP
+                      12             END
+A51 MACRO ASSEMBLER  LOG_AND                                                              04/15/2025 09:34:42 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+LOOP . . . . . . .  C ADDR   0008H   A   
+MAIN . . . . . . .  C ADDR   0000H   A   
+P2 . . . . . . . .  D ADDR   00A0H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

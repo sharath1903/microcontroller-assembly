@@ -1,0 +1,4 @@
+".\Objects\STARTUP.obj",
+".\Objects\log and.obj" 
+TO ".\Objects\log and" 
+PRINT(".\Listings\log and.m51") RAMSIZE(256) 
