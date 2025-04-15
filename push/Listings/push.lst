@@ -1,0 +1,54 @@
+A51 MACRO ASSEMBLER  PUSH                                                                 04/15/2025 09:42:43 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\push.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE push.a51 SET(SMALL) DEBUG PRINT(.\Listings\push.lst) OBJECT(.\Objects\p
+                      ush.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 0000H        ; Start of program
+0000 759000            2     MOV P1, #00H     ; Set Port 1 as output (LED OFF initially)
+0003 75B0FF            3     MOV P3, #0FFH    ; Set Port 3 as input (Enable internal pull-ups)
+                       4     
+0006                   5     MAIN:
+0006 20B3FD            6         JB P3.3, MAIN       ; Wait until button is pressed (Active LOW)
+0009 1117              7         ACALL DEBOUNCE      ; Call debounce routine
+                       8     
+000B 20B3F8            9         JB P3.3, MAIN       ; If button released early, ignore
+000E B290             10         CPL P1.0            ; Toggle LED (Complement P1.0)
+                      11         
+0010                  12     WAIT_RELEASE:
+0010 30B3FD           13         JNB P3.3, WAIT_RELEASE ; Wait until button is released
+0013 1117             14         ACALL DEBOUNCE          ; Call debounce routine
+0015 80EF             15         SJMP MAIN               ; Repeat loop
+                      16     
+                      17     ; Debounce Routine (Simple delay)
+0017                  18     DEBOUNCE:
+0017 7B32             19         MOV R3, #50       ; Load delay counter
+0019                  20     DELAY_LOOP:
+0019 DBFE             21         DJNZ R3, DELAY_LOOP
+001B 22               22         RET               ; Return to main program
+                      23     
+                      24     END
+A51 MACRO ASSEMBLER  PUSH                                                                 04/15/2025 09:42:43 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+DEBOUNCE . . . . .  C ADDR   0017H   A   
+DELAY_LOOP . . . .  C ADDR   0019H   A   
+MAIN . . . . . . .  C ADDR   0006H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+P3 . . . . . . . .  D ADDR   00B0H   A   
+WAIT_RELEASE . . .  C ADDR   0010H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)
